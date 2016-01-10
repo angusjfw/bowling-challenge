@@ -17,7 +17,7 @@ describe("Frame", function() {
     });
 
     it("gets the score for the frame based on frameHits", function() {
-      frame._frameHits = [3, 5]
+      frame._frameHits = [3, 5];
       expect(frame.getScore()).toEqual(8);
     });
   });
@@ -28,7 +28,7 @@ describe("Frame", function() {
     });
 
     it("returns true if the first bowl of the frame is a strike", function(){
-      frame._frameHits = [10]
+      frame._frameHits = [10];
       expect(frame.isStrike()).toEqual(true);
     });
   });
@@ -57,21 +57,21 @@ describe("Frame", function() {
     it("adds the number of pinsHit to the _frameHits array", function() {
       spyOn(Math, "random").and.returnValue(7/10);
       frame.bowl();
-      expect(frame._frameHits[0]).toEqual(7);
+      expect(frame.frameHits()[0]).toEqual(7);
     });
   });
 
-  describe("#playFrame", function() {
+  describe("#play", function() {
     it("plays a full frame of up to two bowls", function() {
       spyOn(Math, "random").and.returnValues(2/10, 6/8);
-      frame.playFrame();
-      expect(frame._frameHits).toEqual([2, 6]);
+      frame.play();
+      expect(frame.frameHits()).toEqual([2, 6]);
     });
 
     it("ends frame if first bowl is a strike", function() {
       spyOn(Math, "random").and.returnValue(10/10);
-      frame.playFrame();
-      expect(frame._frameHits).toEqual([10]);
+      frame.play();
+      expect(frame.frameHits()).toEqual([10]);
     });
   });
 });
