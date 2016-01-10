@@ -48,7 +48,7 @@ describe("Frame", function() {
     });
 
     it("cannot decrease remaningPins below 0", function() {
-      spyOn(Math, "random").and.returnValue(1);
+      spyOn(Math, "random").and.returnValue(10/10);
       frame.bowl();
       frame.bowl();
       expect(frame.remainingPins()).toEqual(0);
@@ -58,6 +58,20 @@ describe("Frame", function() {
       spyOn(Math, "random").and.returnValue(7/10);
       frame.bowl();
       expect(frame._frameHits[0]).toEqual(7);
+    });
+  });
+
+  describe("#playFrame", function() {
+    it("plays a full frame of up to two bowls", function() {
+      spyOn(Math, "random").and.returnValues(2/10, 6/8);
+      frame.playFrame();
+      expect(frame._frameHits).toEqual([2, 6]);
+    });
+
+    it("ends frame if first bowl is a strike", function() {
+      spyOn(Math, "random").and.returnValue(10/10);
+      frame.playFrame();
+      expect(frame._frameHits).toEqual([10]);
     });
   });
 });

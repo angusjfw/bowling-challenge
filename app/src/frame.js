@@ -20,3 +20,10 @@ Frame.prototype.bowl = function() {
   this._remainingPins = this.remainingPins() - pinsHit;
   this._frameHits.push(pinsHit);
 }
+
+Frame.prototype.playFrame = function() {
+  this.bowl()
+  if (!this.isStrike()) {
+    this.bowl()
+  }
+}
