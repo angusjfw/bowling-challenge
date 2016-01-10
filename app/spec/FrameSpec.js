@@ -5,9 +5,17 @@ describe("Frame", function() {
     frame = new Frame();
   });
 
-  describe("#remainingPins", function() {
-    it("has an inital value of 10", function() {
+  describe("#constructor and getters", function() {
+    it("remaningPins has an inital value of 10", function() {
       expect(frame.remainingPins()).toEqual(10);
+    });
+
+    it("frameHits has an inital value of []", function() {
+      expect(frame.frameHits()).toEqual([]);
+    });
+    
+    it("isLast has an inital value of false", function() {
+      expect(frame.isLast()).toEqual(false);
     });
   });
 

@@ -1,6 +1,6 @@
-function Game(frame_klass) {
+function Game(FrameKlass) {
   this._frames = [];
-  this.frame_klass = frame_klass || Frame;
+  this.FrameKlass = FrameKlass || Frame;
 }
 
 Game.prototype.frames = function() {
@@ -31,7 +31,7 @@ Game.prototype.play = function() {
 };
 
 Game.prototype._playFrame = function(isLast) {
-  var frame = new this.frame_klass();
+  var frame = new this.FrameKlass();
   if (isLast) {
     frame._isLast = true;
   }
