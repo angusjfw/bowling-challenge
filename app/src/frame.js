@@ -1,6 +1,7 @@
 function Frame() {
   this._remainingPins = 10;
   this._frameHits = [];
+  this._isLast = false;
 }
 
 Frame.prototype.remainingPins = function() {
@@ -9,6 +10,10 @@ Frame.prototype.remainingPins = function() {
 
 Frame.prototype.frameHits = function() {
   return this._frameHits;
+};
+
+Frame.prototype.isLast = function() {
+  return this._isLast;
 };
 
 Frame.prototype.getScore = function() {
@@ -28,6 +33,10 @@ Frame.prototype.bowl = function() {
 Frame.prototype.play = function() {
   this.bowl();
   if (!this.isStrike()) {
+    this.bowl();
+  }
+  if (this.isLast() && this.getScore() === 10) {
+    this._remainingPins = 10;
     this.bowl();
   }
 };
