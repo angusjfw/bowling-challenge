@@ -6,8 +6,30 @@ describe("Frame", function() {
   });
 
   describe("#remainingPins", function() {
-    it("is set to 10 initally", function() {
+    it("has an inital value of 10", function() {
       expect(frame.remainingPins()).toEqual(10);
+    });
+  });
+
+  describe("#getScore", function() {
+    it("has an inital value of 0", function() {
+      expect(frame.getScore()).toEqual(0);
+    });
+
+    it("gets the score for the frame based on frameHits", function() {
+      frame._frameHits = [3, 5]
+      expect(frame.getScore()).toEqual(8);
+    });
+  });
+
+  describe("#isStrike", function() {
+    it("has an inital value of false", function() {
+      expect(frame.isStrike()).toEqual(false);
+    });
+
+    it("returns true if the first bowl of the frame is a strike", function(){
+      frame._frameHits = [10]
+      expect(frame.isStrike()).toEqual(true);
     });
   });
 
@@ -21,9 +43,7 @@ describe("Frame", function() {
     it("decreases remainingPins by a number <= remainingPins", function() {
       spyOn(Math, "random").and.returnValues(5/10, 5/5);
       frame.bowl();
-      console.log(frame.remainingPins());
       frame.bowl();
-      console.log(frame.remainingPins());
       expect(frame.remainingPins()).toEqual(0);
     });
 
@@ -34,5 +54,10 @@ describe("Frame", function() {
       expect(frame.remainingPins()).toEqual(0);
     });
 
+    it("adds the number of pinsHit to the _frameHits array", function() {
+      spyOn(Math, "random").and.returnValue(7/10);
+      frame.bowl();
+      expect(frame._frameHits[0]).toEqual(7);
+    });
   });
 });
