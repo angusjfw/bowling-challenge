@@ -24,7 +24,7 @@ describe("Frame", function() {
       expect(frame.getScore()).toEqual(0);
     });
 
-    it("gets the score for the frame based on frameHits", function() {
+    it("gets the score for the frame by summing frameHits", function() {
       frame._frameHits = [3, 5];
       expect(frame.getScore()).toEqual(8);
     });
@@ -70,16 +70,29 @@ describe("Frame", function() {
   });
 
   describe("#play", function() {
-    it("plays a full frame of up to two bowls", function() {
-      spyOn(Math, "random").and.returnValues(2/10, 6/8);
-      frame.play();
-      expect(frame.frameHits()).toEqual([2, 6]);
+    describe("when is not last frame", function() {
+      it("plays a full frame of up to two bowls", function() {
+        spyOn(Math, "random").and.returnValues(2/10, 6/8);
+        frame.play();
+        expect(frame.frameHits()).toEqual([2, 6]);
+      });
+
+      it("ends frame if first bowl is a strike", function() {
+        spyOn(Math, "random").and.returnValue(10/10);
+        frame.play();
+        expect(frame.frameHits()).toEqual([10]);
+      });
     });
 
-    it("ends frame if first bowl is a strike", function() {
-      spyOn(Math, "random").and.returnValue(10/10);
-      frame.play();
-      expect(frame.frameHits()).toEqual([10]);
+    describe("when isLast frame", function() {
+      beforeEach(function() {
+        frame._isLast = true;
+      });
+      it("bowls an extra time if result is a spare", function() {
+        spyOn(Math, "random").and.returnValues(5/10, 5/5, 3/10);
+        frame.play();
+        expect(frame.frameHits()).toEqual([5, 5, 3]);
+      });
     });
   });
 });

@@ -12,12 +12,12 @@ describe("Game", function() {
     game = new Game(FrameClassMock);
   });
 
-  describe("#frames", function() {
-    it("is initialised as an empty array", function() {
+  describe("#constructor and getters", function() {
+    it("frames initialised as an empty array", function() {
       expect(game.frames()).toEqual([]);
     });
 
-    it("gets the array of all frames stored in _frames", function() {
+    it("#frames gets the array of all frames stored in _frames", function() {
       game._frames = [frame, "frame" ]; 
       expect(game.frames()).toEqual([frame, "frame"]);
     });
